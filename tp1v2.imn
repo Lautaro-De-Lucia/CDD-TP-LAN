@@ -5,8 +5,8 @@ node n0 {
 	!
     }
     canvas c0
-    iconcoords {72 216}
-    labelcoords {72 239}
+    iconcoords {96 216}
+    labelcoords {96 239}
     interface-peer {e0 n1}
     interface-peer {e1 n2}
 }
@@ -17,9 +17,9 @@ node n1 {
 	hostname pc1
 	!
 	interface eth0
-	 ip address 10.0.0.20/24
 	 ipv6 address fc00::20/64
 	 mac address 42:00:aa:00:00:00
+	 ip address 130.55.48.202/28
 	!
 	interface lo0
 	 type lo
@@ -32,8 +32,8 @@ node n1 {
 	!
     }
     canvas c0
-    iconcoords {72 72}
-    labelcoords {72 103}
+    iconcoords {96 72}
+    labelcoords {96 103}
     interface-peer {eth0 n0}
 }
 
@@ -44,14 +44,15 @@ node n2 {
 	hostname router1
 	!
 	interface eth1
-	 ip address 10.0.1.2/24
 	 ipv6 address fc00:1::2/64
 	 mac address 42:00:aa:00:00:03
+	 mtu 500
+	 ip address 130.55.48.209/30
 	!
 	interface eth0
-	 ip address 10.0.0.1/24
 	 ipv6 address fc00::1/64
 	 mac address 42:00:aa:00:00:01
+	 ip address 130.55.48.193/28
 	!
 	interface lo0
 	 type lo
@@ -72,8 +73,8 @@ node n2 {
 	!
     }
     canvas c0
-    iconcoords {72 360}
-    labelcoords {72 385}
+    iconcoords {96 360}
+    labelcoords {96 385}
     interface-peer {eth0 n0}
     interface-peer {eth1 n3}
 }
@@ -85,19 +86,20 @@ node n3 {
 	hostname router2
 	!
 	interface eth2
-	 ip address 10.0.3.2/24
 	 ipv6 address fc00:3::2/64
 	 mac address 42:00:aa:00:00:07
-	!
-	interface eth1
-	 ip address 10.0.2.1/24
-	 ipv6 address fc00:2::1/64
-	 mac address 42:00:aa:00:00:04
+	 ip address 130.55.48.213/30
 	!
 	interface eth0
-	 ip address 10.0.1.1/24
 	 ipv6 address fc00:1::1/64
 	 mac address 42:00:aa:00:00:02
+	 mtu 500
+	 ip address 130.55.48.210/30
+	!
+	interface eth1
+	 ipv6 address fc00:2::1/64
+	 mac address 42:00:aa:00:00:04
+	 ip address 130.55.48.161/28
 	!
 	interface lo0
 	 type lo
@@ -118,8 +120,8 @@ node n3 {
 	!
     }
     canvas c0
-    iconcoords {72 504}
-    labelcoords {72 529}
+    iconcoords {96 504}
+    labelcoords {96 529}
     interface-peer {eth0 n2}
     interface-peer {eth1 n14}
     interface-peer {eth2 n5}
@@ -131,9 +133,9 @@ node n4 {
 	hostname pc4
 	!
 	interface eth0
-	 ip address 10.0.2.20/24
 	 ipv6 address fc00:2::20/64
 	 mac address 42:00:aa:00:00:05
+	 ip address 130.55.48.170/28
 	!
 	interface lo0
 	 type lo
@@ -146,8 +148,8 @@ node n4 {
 	!
     }
     canvas c0
-    iconcoords {72 792}
-    labelcoords {72 823}
+    iconcoords {96 792}
+    labelcoords {96 823}
     interface-peer {eth0 n14}
 }
 
@@ -158,19 +160,20 @@ node n5 {
 	hostname router3
 	!
 	interface eth2
-	 ip address 10.0.5.2/24
 	 ipv6 address fc00:5::2/64
 	 mac address 42:00:aa:00:00:0b
+	 ip address 130.55.48.221/30
 	!
 	interface eth1
-	 ip address 10.0.4.2/24
 	 ipv6 address fc00:4::2/64
 	 mac address 42:00:aa:00:00:09
+	 mtu 500
+	 ip address 130.55.48.217/30
 	!
 	interface eth0
-	 ip address 10.0.3.1/24
 	 ipv6 address fc00:3::1/64
 	 mac address 42:00:aa:00:00:06
+	 ip address 130.55.48.214/30
 	!
 	interface lo0
 	 type lo
@@ -191,8 +194,8 @@ node n5 {
 	!
     }
     canvas c0
-    iconcoords {264 504}
-    labelcoords {264 529}
+    iconcoords {480 504}
+    labelcoords {480 529}
     interface-peer {eth0 n3}
     interface-peer {eth1 n6}
     interface-peer {eth2 n7}
@@ -204,25 +207,27 @@ node n6 {
     network-config {
 	hostname router4
 	!
-	interface eth3
-	 ip address 10.0.8.1/24
-	 ipv6 address fc00:8::1/64
-	 mac address 42:00:aa:00:00:10
-	!
-	interface eth2
-	 ip address 10.0.7.1/24
-	 ipv6 address fc00:7::1/64
-	 mac address 42:00:aa:00:00:0e
-	!
 	interface eth1
-	 ip address 10.0.6.2/24
 	 ipv6 address fc00:6::2/64
 	 mac address 42:00:aa:00:00:0d
+	 mtu 1000
+	 ip address 130.55.48.226/30
 	!
 	interface eth0
-	 ip address 10.0.4.1/24
 	 ipv6 address fc00:4::1/64
 	 mac address 42:00:aa:00:00:08
+	 mtu 500
+	 ip address 130.55.48.218/30
+	!
+	interface eth3
+	 ipv6 address fc00:8::1/64
+	 mac address 42:00:aa:00:00:10
+	 ip address 130.55.48.129/27
+	!
+	interface eth2
+	 ipv6 address fc00:7::1/64
+	 mac address 42:00:aa:00:00:0e
+	 ip address 130.55.48.1/26
 	!
 	interface lo0
 	 type lo
@@ -243,8 +248,8 @@ node n6 {
 	!
     }
     canvas c0
-    iconcoords {456 504}
-    labelcoords {456 529}
+    iconcoords {864 504}
+    labelcoords {864 529}
     interface-peer {eth0 n5}
     interface-peer {eth1 n7}
     interface-peer {eth2 n15}
@@ -257,30 +262,31 @@ node n7 {
     network-config {
 	hostname router5
 	!
-	interface eth4
-	 ip address 10.0.11.1/24
-	 ipv6 address fc00:b::1/64
-	 mac address 42:00:aa:00:00:16
-	!
-	interface eth3
-	 ip address 10.0.10.1/24
-	 ipv6 address fc00:a::1/64
-	 mac address 42:00:aa:00:00:14
-	!
-	interface eth2
-	 ip address 10.0.9.1/24
-	 ipv6 address fc00:9::1/64
-	 mac address 42:00:aa:00:00:12
-	!
 	interface eth1
-	 ip address 10.0.6.1/24
 	 ipv6 address fc00:6::1/64
 	 mac address 42:00:aa:00:00:0c
+	 mtu 1000
+	 ip address 130.55.48.225/30
 	!
 	interface eth0
-	 ip address 10.0.5.1/24
 	 ipv6 address fc00:5::1/64
 	 mac address 42:00:aa:00:00:0a
+	 ip address 130.55.48.222/30
+	!
+	interface eth4
+	 ipv6 address fc00:b::1/64
+	 mac address 42:00:aa:00:00:16
+	 ip address 130.55.48.177/28
+	!
+	interface eth2
+	 ipv6 address fc00:9::1/64
+	 mac address 42:00:aa:00:00:12
+	 ip address 130.55.48.97/27
+	!
+	interface eth3
+	 ipv6 address fc00:a::1/64
+	 mac address 42:00:aa:00:00:14
+	 ip address 130.55.48.65/27
 	!
 	interface lo0
 	 type lo
@@ -301,8 +307,8 @@ node n7 {
 	!
     }
     canvas c0
-    iconcoords {456 360}
-    labelcoords {456 385}
+    iconcoords {864 360}
+    labelcoords {864 385}
     interface-peer {eth0 n5}
     interface-peer {eth1 n6}
     interface-peer {eth2 n12}
@@ -317,8 +323,8 @@ node n8 {
 	!
     }
     canvas c0
-    iconcoords {264 360}
-    labelcoords {264 383}
+    iconcoords {480 360}
+    labelcoords {480 383}
     interface-peer {e0 n7}
     interface-peer {e1 n9}
 }
@@ -329,9 +335,9 @@ node n9 {
 	hostname pc5
 	!
 	interface eth0
-	 ip address 10.0.11.20/24
 	 ipv6 address fc00:b::20/64
 	 mac address 42:00:aa:00:00:17
+	 ip address 130.55.48.186/28
 	!
 	interface lo0
 	 type lo
@@ -344,8 +350,8 @@ node n9 {
 	!
     }
     canvas c0
-    iconcoords {264 216}
-    labelcoords {264 247}
+    iconcoords {480 216}
+    labelcoords {480 247}
     interface-peer {eth0 n8}
 }
 
@@ -356,8 +362,8 @@ node n10 {
 	!
     }
     canvas c0
-    iconcoords {456 216}
-    labelcoords {456 239}
+    iconcoords {864 216}
+    labelcoords {864 239}
     interface-peer {e0 n7}
     interface-peer {e1 n11}
 }
@@ -368,9 +374,9 @@ node n11 {
 	hostname pc6
 	!
 	interface eth0
-	 ip address 10.0.10.20/24
 	 ipv6 address fc00:a::20/64
 	 mac address 42:00:aa:00:00:15
+	 ip address 130.55.48.74/27
 	!
 	interface lo0
 	 type lo
@@ -383,8 +389,8 @@ node n11 {
 	!
     }
     canvas c0
-    iconcoords {456 72}
-    labelcoords {456 103}
+    iconcoords {864 72}
+    labelcoords {864 103}
     interface-peer {eth0 n10}
 }
 
@@ -395,8 +401,8 @@ node n12 {
 	!
     }
     canvas c0
-    iconcoords {648 360}
-    labelcoords {648 383}
+    iconcoords {1224 360}
+    labelcoords {1224 383}
     interface-peer {e0 n7}
     interface-peer {e1 n13}
 }
@@ -407,9 +413,9 @@ node n13 {
 	hostname pc7
 	!
 	interface eth0
-	 ip address 10.0.9.20/24
 	 ipv6 address fc00:9::20/64
 	 mac address 42:00:aa:00:00:13
+	 ip address 130.55.48.106/27
 	!
 	interface lo0
 	 type lo
@@ -422,8 +428,8 @@ node n13 {
 	!
     }
     canvas c0
-    iconcoords {840 360}
-    labelcoords {840 391}
+    iconcoords {1416 360}
+    labelcoords {1416 391}
     interface-peer {eth0 n12}
 }
 
@@ -434,8 +440,8 @@ node n14 {
 	!
     }
     canvas c0
-    iconcoords {72 648}
-    labelcoords {72 671}
+    iconcoords {96 648}
+    labelcoords {96 671}
     interface-peer {e0 n3}
     interface-peer {e1 n4}
 }
@@ -447,8 +453,8 @@ node n15 {
 	!
     }
     canvas c0
-    iconcoords {456 648}
-    labelcoords {456 671}
+    iconcoords {864 648}
+    labelcoords {864 671}
     interface-peer {e0 n6}
     interface-peer {e1 n16}
 }
@@ -459,9 +465,9 @@ node n16 {
 	hostname pc8
 	!
 	interface eth0
-	 ip address 10.0.7.20/24
 	 ipv6 address fc00:7::20/64
 	 mac address 42:00:aa:00:00:0f
+	 ip address 130.55.48.10/26
 	!
 	interface lo0
 	 type lo
@@ -474,8 +480,8 @@ node n16 {
 	!
     }
     canvas c0
-    iconcoords {456 792}
-    labelcoords {456 823}
+    iconcoords {864 792}
+    labelcoords {864 823}
     interface-peer {eth0 n15}
 }
 
@@ -486,8 +492,8 @@ node n17 {
 	!
     }
     canvas c0
-    iconcoords {648 504}
-    labelcoords {648 527}
+    iconcoords {1224 504}
+    labelcoords {1224 527}
     interface-peer {e0 n6}
     interface-peer {e1 n18}
 }
@@ -498,9 +504,9 @@ node n18 {
 	hostname pc9
 	!
 	interface eth0
-	 ip address 10.0.8.20/24
 	 ipv6 address fc00:8::20/64
 	 mac address 42:00:aa:00:00:11
+	 ip address 130.55.48.138/27
 	!
 	interface lo0
 	 type lo
@@ -513,8 +519,8 @@ node n18 {
 	!
     }
     canvas c0
-    iconcoords {840 504}
-    labelcoords {840 535}
+    iconcoords {1416 504}
+    labelcoords {1416 535}
     interface-peer {eth0 n17}
 }
 
@@ -615,77 +621,70 @@ link l18 {
 
 annotation a0 {
     type rectangle
-    iconcoords {23 601 119 840}
+    iconcoords {39 602 135 841}
     color #ce2023
     bordercolor black
     width 1
-    rad 25
     canvas c0
 }
 
 annotation a1 {
     type rectangle
-    iconcoords {27 25 121 263}
+    iconcoords {43 26 137 264}
     color #933b9c
     bordercolor black
     width 1
-    rad 25
     canvas c0
 }
 
 annotation a2 {
     type rectangle
-    iconcoords {217 170 311 408}
+    iconcoords {430 169 525 407}
     color #bcd600
     bordercolor black
     width 1
-    rad 25
     canvas c0
 }
 
 annotation a3 {
     type rectangle
-    iconcoords {408 600 505 842}
+    iconcoords {815 596 912 838}
     color #8080d8
     bordercolor black
     width 1
-    rad 25
     canvas c0
 }
 
 annotation a4 {
     type rectangle
-    iconcoords {410 24 504 266}
+    iconcoords {817 20 911 262}
     color #389b41
     bordercolor black
     width 1
-    rad 25
     canvas c0
 }
 
 annotation a5 {
     type rectangle
-    iconcoords {600 314 890 408}
+    iconcoords {1194 312 1484 406}
     color #ffa439
     bordercolor black
     width 1
-    rad 25
     canvas c0
 }
 
 annotation a6 {
     type rectangle
-    iconcoords {601 456 889 554}
+    iconcoords {1195 454 1483 552}
     color #199880
     bordercolor black
     width 1
-    rad 25
     canvas c0
 }
 
 annotation a7 {
     type text
-    iconcoords {148 75}
+    iconcoords {146 58}
     label {G}
     labelcolor #a038a0
     font {-family {DejaVu Sans} -size 36 -weight bold -slant roman -underline 0 -overstrike 0}
@@ -694,7 +693,7 @@ annotation a7 {
 
 annotation a8 {
     type text
-    iconcoords {150 649}
+    iconcoords {139 519}
     label {E}
     labelcolor #fe0000
     font {-family {DejaVu Sans} -size 36 -weight bold -slant roman -underline 0 -overstrike 0}
@@ -703,7 +702,7 @@ annotation a8 {
 
 annotation a9 {
     type text
-    iconcoords {345 218}
+    iconcoords {437 167}
     label {F}
     labelcolor #bcc600
     font {-family {DejaVu Sans} -size 36 -weight bold -slant roman -underline 0 -overstrike 0}
@@ -712,7 +711,7 @@ annotation a9 {
 
 annotation a10 {
     type text
-    iconcoords {534 73}
+    iconcoords {763 67}
     label {B}
     labelcolor #008e00
     font {-family {DejaVu Sans} -size 36 -weight bold -slant roman -underline 0 -overstrike 0}
@@ -721,7 +720,7 @@ annotation a10 {
 
 annotation a11 {
     type text
-    iconcoords {534 650}
+    iconcoords {756 520}
     label {A}
     labelcolor #3e69b1
     font {-family {DejaVu Sans} -size 36 -weight bold -slant roman -underline 0 -overstrike 0}
@@ -730,7 +729,7 @@ annotation a11 {
 
 annotation a12 {
     type text
-    iconcoords {632 266}
+    iconcoords {961 209}
     label {C}
     labelcolor #ff9800
     font {-family {DejaVu Sans} -size 36 -weight bold -slant roman -underline 0 -overstrike 0}
@@ -739,16 +738,61 @@ annotation a12 {
 
 annotation a13 {
     type text
-    iconcoords {631 601}
+    iconcoords {975 493}
     label {D}
     labelcolor #309e8b
     font {-family {DejaVu Sans} -size 36 -weight bold -slant roman -underline 0 -overstrike 0}
     canvas c0
 }
 
+annotation a14 {
+    type text
+    iconcoords {150 378}
+    label {H}
+    labelcolor #d8d6d8
+    font {-family {DejaVu Sans} -size 36 -weight bold -slant roman -underline 0 -overstrike 0}
+    canvas c0
+}
+
+annotation a15 {
+    type text
+    iconcoords {230 458}
+    label {I}
+    labelcolor #dce0e0
+    font {-family {DejaVu Sans} -size 36 -weight bold -slant roman -underline 0 -overstrike 0}
+    canvas c0
+}
+
+annotation a16 {
+    type text
+    iconcoords {568 453}
+    label {J}
+    labelcolor #e0e0e0
+    font {-family {DejaVu Sans} -size 36 -weight bold -slant roman -underline 0 -overstrike 0}
+    canvas c0
+}
+
+annotation a17 {
+    type text
+    iconcoords {456 325}
+    label {K}
+    labelcolor #e0e0e0
+    font {-family {DejaVu Sans} -size 36 -weight bold -slant roman -underline 0 -overstrike 0}
+    canvas c0
+}
+
+annotation a18 {
+    type text
+    iconcoords {764 351}
+    label {L}
+    labelcolor #e0e0e0
+    font {-family {DejaVu Sans} -size 36 -weight bold -slant roman -underline 0 -overstrike 0}
+    canvas c0
+}
+
 canvas c0 {
     name {Canvas0}
-    size {900 900}
+    size {1500 900}
 }
 
 option show {
@@ -757,11 +801,11 @@ option show {
     ipv6_addresses no
     node_labels yes
     link_labels yes
-    background_images no
+    background_images yes
     annotations yes
     hostsAutoAssign no
-    grid yes
+    grid no
     iconSize normal
-    zoom 1.0
+    zoom 0.8
 }
 

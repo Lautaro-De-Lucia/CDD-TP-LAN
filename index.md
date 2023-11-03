@@ -65,3 +65,19 @@ A continuación, se muestra un diagrama que muestra la topología de nuestra red
 ![Alt text](image-3.png)
 
 La topología en IMUNES es la de la figura:
+
+<center>
+
+![topologiaimunes](topologiaimunes.png)
+
+</center>
+
+Donde se definen sub-redes *punto a punto* $H,I,J,K,L$ para los enlaces entre routers.
+
+|Red|Dirección|Rango|
+|---|---|---|
+| $H$ | $130.55.48.208/30$ |  $130.55.48.208 - 130.55.48.211$ |
+| $I$ | $130.55.48.212/30$| $130.55.48.212 - 130.55.48.215$ |
+| $J$ | $130.55.48.216/30$ | $130.55.48.216 - 130.55.48.219$ |
+| $K$ | $130.55.48.220/30$| $130.55.48.220 - 130.55.48.223$ |
+| $L$ | $130.55.48.224/30$| $130.55.48.224 - 130.55.48.227$ |
