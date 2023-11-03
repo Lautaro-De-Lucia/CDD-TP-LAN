@@ -52,3 +52,16 @@ Luego, podemos hacer un sub-netting de la forma:
 | $E$ | $130.55.48.160/28$| $130.55.48.160 - 130.55.48.175$ |
 | $F$ | $130.55.48.176/28$ | $130.55.48.176 - 130.55.48.191$ |
 | $G$ | $130.55.48.192/28$| $130.55.48.192 - 130.55.48.207$ |
+
+![Alt text](image-2.png)
+
+Como criterio de diseño, consideramos preferible que todas las interfaces en una ruta específica tengan el mismo MTU. Esto a modo de evitar la fragmentación de paquetes, que puede causar una sobrecarga innecesaria y potencialmente reducir el rendimiento.
+
+Con esto, encontramos que la cantidad mínima de routers que nos permiten obtener un diseño que cumpla con todos los requisitos es cinco. 
+
+A continuación, se muestra un diagrama que muestra la topología de nuestra red. Es fácil ver que se cumplen las condiciones de el enunciado.
+
+
+![Alt text](image-3.png)
+
+La topología en IMUNES es la de la figura:
