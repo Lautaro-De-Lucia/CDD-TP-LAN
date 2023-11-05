@@ -39,7 +39,7 @@ Si queremos hacer una asignación eficiente, conviene determinar el tamaño mín
 </center>
 
 - ***Obs***
-Notar que utilizamos 32bits para la red D, ya que una máscara de sub-red de 16 bits solo permite 14 espacios para hosts, teniendo que reservar 2 espacios para red y broadcast respectivamente. El Rango para la identificación de hosts implica restar 2 a el rango total.
+Notar que utilizamos $32$ bits para la red D, ya que una máscara de sub-red de 16 bits solo permite 14 espacios para hosts, teniendo que reservar 2 espacios para red y broadcast respectivamente. 
 
 Luego, podemos hacer un sub-netting de la forma:
 
@@ -53,9 +53,12 @@ Luego, podemos hacer un sub-netting de la forma:
 | $F$ | $130.55.48.176/28$ | $130.55.48.176 - 130.55.48.191$ |
 | $G$ | $130.55.48.192/28$| $130.55.48.192 - 130.55.48.207$ |
 
+- ***Obs***
+Notar que estamos incluyendo la dirección de red y broadcast en el rango. 
+
 ![Alt text](image-2.png)
 
-Como criterio de diseño, consideramos preferible que todas las interfaces en una ruta específica tengan el mismo MTU. Esto a modo de evitar la fragmentación de paquetes, que puede causar una sobrecarga innecesaria y potencialmente reducir el rendimiento.
+Como criterio de diseño, consideramos preferible que todas las interfaces en una ruta específica tengan el mismo MTU. Esto a modo de evitar la fragmentación innecesaria de paquetes, que puede causar una sobrecarga y potencialmente reducir el rendimiento.
 
 Con esto, encontramos que la cantidad mínima de routers que nos permiten obtener un diseño que cumpla con todos los requisitos es cinco. 
 
@@ -64,7 +67,7 @@ A continuación, se muestra un diagrama que muestra la topología de nuestra red
 
 ![Alt text](image-3.png)
 
-La topología en IMUNES es la de la figura:
+Pasando esta topología a IMUNES, esta nos queda de la forma:
 
 <center>
 
@@ -84,14 +87,14 @@ Donde se definen sub-redes *punto a punto* $H,I,J,K,L$ para los enlaces entre ro
 
 ![3-A](image-4.png)
 
-A continuación, mostramos capturas de la terminal de el Host de la Red A y la captura de Wireshark de su interface eth0.
+A continuación, mostramos capturas de la terminal deel Host de la Red A y la captura de Wireshark de su interface eth0.
 
 ![Alt text](image-6.png)
 ![Alt text](image-5.png)
 
-- En la primera imagen vemos que el ping fue exitoso, enviando un paquete de $3000$ bytes a la dirección $130.55.48.66$. Recibimos una respuesta, indicando que no hubo pérdida de paquetes, y el time to live (TTL) del paquete recibido es de $62$, lo que es consistente con la topología de la red.
+- En la primera imagen vemos que el ping fue exitoso, enviando un paquete de $3000$ bytes a la dirección $130.55.48.66$ (Host en Red B). Recibimos una respuesta indicando que no hubo pérdida de paquetes, y el time to live (TTL) del paquete recibido es de $62$, lo que es consistente con la topología de la red.
 
-- En la captura de Wireshark, vemos como la interface primero observa el ***ping request*** *saliendo* de el Host A con destino en el Host B, fragmentado en 2 partes dado el MTU 1500 de la interfaz eth0 de el host. Luego, recibe el ***ping reply*** fragmentado en tres paquetes (dado el MTU de 1000 en el camino de la respuesta). El fragment offset de el tercer paquete es de 1952 bits (8x244 bytes).
+- En la captura de Wireshark, vemos como la interface primero observa el ***ping request*** *saliendo* de el Host A con destino en el Host B, fragmentado en 2 partes dado el $MTU 1500$ de la interfaz eth0 de el host. Luego, recibe el ***ping reply*** fragmentado en tres paquetes (dado el $MTU 1000$ en el camino de la respuesta). El fragment offset de el tercer paquete es de $1952$ bits ($8x244$ bytes).
 
 ![Alt text](image-8.png)
 
@@ -124,16 +127,12 @@ Como nuestra topología no incluye switches conectados a dos routers simultaneam
 
 </center>
 
-Es decir, agregamos un segundo host en Imunes.
-
-Luego, mediante los comandos:
+Es decir, agregamos un segundo host a la Red A en la topología de Imunes. Luego, ejecutamos los siguientes comandos en host8 a modo de cambiar su default gateway para que este sea eth0 de host4.
 
 ```
 ip route del default
 ip route add default via 130.55.48.2
 ```
-
-Cambiamos el default gateway de host8 para que este sea eth0 de host4.
 
 Luego, si enviamos un ping a la Red B desde host8 y observamos la captura de wireshark
 

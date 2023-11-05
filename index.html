@@ -113,7 +113,7 @@
 </center>
 <ul>
 <li><em><strong>Obs</strong></em><br>
-Notar que utilizamos 32bits para la red D, ya que una máscara de sub-red de 16 bits solo permite 14 espacios para hosts, teniendo que reservar 2 espacios para red y broadcast respectivamente. El Rango para la identificación de hosts implica restar 2 a el rango total.</li>
+Notar que utilizamos <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>32</mn></mrow><annotation encoding="application/x-tex">32</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">32</span></span></span></span> bits para la red D, ya que una máscara de sub-red de 16 bits solo permite 14 espacios para hosts, teniendo que reservar 2 espacios para red y broadcast respectivamente.</li>
 </ul>
 <p>Luego, podemos hacer un sub-netting de la forma:</p>
 <table>
@@ -162,12 +162,16 @@ Notar que utilizamos 32bits para la red D, ya que una máscara de sub-red de 16 
 </tr>
 </tbody>
 </table>
+<ul>
+<li><em><strong>Obs</strong></em><br>
+Notar que estamos incluyendo la dirección de red y broadcast en el rango.</li>
+</ul>
 <p><img src="image-2.png" alt="Alt text"></p>
-<p>Como criterio de diseño, consideramos preferible que todas las interfaces en una ruta específica tengan el mismo MTU. Esto a modo de evitar la fragmentación de paquetes, que puede causar una sobrecarga innecesaria y potencialmente reducir el rendimiento.</p>
+<p>Como criterio de diseño, consideramos preferible que todas las interfaces en una ruta específica tengan el mismo MTU. Esto a modo de evitar la fragmentación innecesaria de paquetes, que puede causar una sobrecarga y potencialmente reducir el rendimiento.</p>
 <p>Con esto, encontramos que la cantidad mínima de routers que nos permiten obtener un diseño que cumpla con todos los requisitos es cinco.</p>
 <p>A continuación, se muestra un diagrama que muestra la topología de nuestra red. Es fácil ver que se cumplen las condiciones de el enunciado.</p>
 <p><img src="image-3.png" alt="Alt text"></p>
-<p>La topología en IMUNES es la de la figura:</p>
+<p>Pasando esta topología a IMUNES, esta nos queda de la forma:</p>
 <center>
 <p><img src="topologiaimunes2.png" alt="topologiaimunes"></p>
 </center>
@@ -209,15 +213,15 @@ Notar que utilizamos 32bits para la red D, ya que una máscara de sub-red de 16 
 </tbody>
 </table>
 <p><img src="image-4.png" alt="3-A"></p>
-<p>A continuación, mostramos capturas de la terminal de el Host de la Red A y la captura de Wireshark de su interface eth0.</p>
+<p>A continuación, mostramos capturas de la terminal deel Host de la Red A y la captura de Wireshark de su interface eth0.</p>
 <p><img src="image-6.png" alt="Alt text"><br>
 <img src="image-5.png" alt="Alt text"></p>
 <ul>
 <li>
-<p>En la primera imagen vemos que el ping fue exitoso, enviando un paquete de <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3000</mn></mrow><annotation encoding="application/x-tex">3000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">3000</span></span></span></span> bytes a la dirección <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>130.55.48.66</mn></mrow><annotation encoding="application/x-tex">130.55.48.66</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">130.55.48.66</span></span></span></span>. Recibimos una respuesta, indicando que no hubo pérdida de paquetes, y el time to live (TTL) del paquete recibido es de <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>62</mn></mrow><annotation encoding="application/x-tex">62</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">62</span></span></span></span>, lo que es consistente con la topología de la red.</p>
+<p>En la primera imagen vemos que el ping fue exitoso, enviando un paquete de <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3000</mn></mrow><annotation encoding="application/x-tex">3000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">3000</span></span></span></span> bytes a la dirección <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>130.55.48.66</mn></mrow><annotation encoding="application/x-tex">130.55.48.66</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">130.55.48.66</span></span></span></span> (Host en Red B). Recibimos una respuesta indicando que no hubo pérdida de paquetes, y el time to live (TTL) del paquete recibido es de <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>62</mn></mrow><annotation encoding="application/x-tex">62</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">62</span></span></span></span>, lo que es consistente con la topología de la red.</p>
 </li>
 <li>
-<p>En la captura de Wireshark, vemos como la interface primero observa el <em><strong>ping request</strong></em> <em>saliendo</em> de el Host A con destino en el Host B, fragmentado en 2 partes dado el MTU 1500 de la interfaz eth0 de el host. Luego, recibe el <em><strong>ping reply</strong></em> fragmentado en tres paquetes (dado el MTU de 1000 en el camino de la respuesta). El fragment offset de el tercer paquete es de 1952 bits (8x244 bytes).</p>
+<p>En la captura de Wireshark, vemos como la interface primero observa el <em><strong>ping request</strong></em> <em>saliendo</em> de el Host A con destino en el Host B, fragmentado en 2 partes dado el <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>T</mi><mi>U</mi><mn>1500</mn></mrow><annotation encoding="application/x-tex">MTU 1500</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">MT</span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="mord">1500</span></span></span></span> de la interfaz eth0 de el host. Luego, recibe el <em><strong>ping reply</strong></em> fragmentado en tres paquetes (dado el <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>T</mi><mi>U</mi><mn>1000</mn></mrow><annotation encoding="application/x-tex">MTU 1000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">MT</span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span><span class="mord">1000</span></span></span></span> en el camino de la respuesta). El fragment offset de el tercer paquete es de <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1952</mn></mrow><annotation encoding="application/x-tex">1952</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1952</span></span></span></span> bits (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8</mn><mi>x</mi><mn>244</mn></mrow><annotation encoding="application/x-tex">8x244</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">8</span><span class="mord mathnormal">x</span><span class="mord">244</span></span></span></span> bytes).</p>
 </li>
 </ul>
 <p><img src="image-8.png" alt="Alt text"></p>
@@ -235,12 +239,10 @@ Notar que utilizamos 32bits para la red D, ya que una máscara de sub-red de 16 
 <center>
 <p><img src="image-13.png" alt="Alt text"></p>
 </center>
-<p>Es decir, agregamos un segundo host en Imunes.</p>
-<p>Luego, mediante los comandos:</p>
+<p>Es decir, agregamos un segundo host a la Red A en la topología de Imunes. Luego, ejecutamos los siguientes comandos en host8 a modo de cambiar su default gateway para que este sea eth0 de host4.</p>
 <pre data-role="codeBlock" data-info="" class="language-text text"><code>ip route del default
 ip route add default via 130.55.48.2
-</code></pre><p>Cambiamos el default gateway de host8 para que este sea eth0 de host4.</p>
-<p>Luego, si enviamos un ping a la Red B desde host8 y observamos la captura de wireshark</p>
+</code></pre><p>Luego, si enviamos un ping a la Red B desde host8 y observamos la captura de wireshark</p>
 <p><img src="image-12.png" alt="Alt text"></p>
 <p>Vemos como estamos recibiendo un ICMP Redirect de parte de host 4, que es exactamente lo que esperabamos.</p>
 
