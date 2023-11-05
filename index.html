@@ -169,7 +169,7 @@ Notar que utilizamos 32bits para la red D, ya que una máscara de sub-red de 16 
 <p><img src="image-3.png" alt="Alt text"></p>
 <p>La topología en IMUNES es la de la figura:</p>
 <center>
-<p><img src="topologiaimunes.png" alt="topologiaimunes"></p>
+<p><img src="topologiaimunes2.png" alt="topologiaimunes"></p>
 </center>
 <p>Donde se definen sub-redes <em>punto a punto</em> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo separator="true">,</mo><mi>I</mi><mo separator="true">,</mo><mi>J</mi><mo separator="true">,</mo><mi>K</mi><mo separator="true">,</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">H,I,J,K,L</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.09618em;">J</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">L</span></span></span></span> para los enlaces entre routers.</p>
 <table>
@@ -209,6 +209,40 @@ Notar que utilizamos 32bits para la red D, ya que una máscara de sub-red de 16 
 </tbody>
 </table>
 <p><img src="image-4.png" alt="3-A"></p>
+<p>A continuación, mostramos capturas de la terminal de el Host de la Red A y la captura de Wireshark de su interface eth0.</p>
+<p><img src="image-6.png" alt="Alt text"><br>
+<img src="image-5.png" alt="Alt text"></p>
+<ul>
+<li>
+<p>En la primera imagen vemos que el ping fue exitoso, enviando un paquete de <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3000</mn></mrow><annotation encoding="application/x-tex">3000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">3000</span></span></span></span> bytes a la dirección <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>130.55.48.66</mn></mrow><annotation encoding="application/x-tex">130.55.48.66</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">130.55.48.66</span></span></span></span>. Recibimos una respuesta, indicando que no hubo pérdida de paquetes, y el time to live (TTL) del paquete recibido es de <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>62</mn></mrow><annotation encoding="application/x-tex">62</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">62</span></span></span></span>, lo que es consistente con la topología de la red.</p>
+</li>
+<li>
+<p>En la captura de Wireshark, vemos como la interface primero observa el <em><strong>ping request</strong></em> <em>saliendo</em> de el Host A con destino en el Host B, fragmentado en 2 partes dado el MTU 1500 de la interfaz eth0 de el host. Luego, recibe el <em><strong>ping reply</strong></em> fragmentado en tres paquetes (dado el MTU de 1000 en el camino de la respuesta). El fragment offset de el tercer paquete es de 1952 bits (8x244 bytes).</p>
+</li>
+</ul>
+<p><img src="image-8.png" alt="Alt text"></p>
+<h4 id="a-net-unreachable">A. Net Unreachable </h4>
+<p>Realizamos un ping apuntado a una red inexistente (cambiamos <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>48</mn></mrow><annotation encoding="application/x-tex">48</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">48</span></span></span></span> por <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>49</mn></mrow><annotation encoding="application/x-tex">49</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">49</span></span></span></span> en el tercer byte)</p>
+<p><img src="image-7.png" alt="Alt text"></p>
+<h4 id="b-host-unreachable">B. Host Unreachable </h4>
+<p>Realizamos un ping apuntando a un host inexistente en la Red B.</p>
+<p><img src="image-9.png" alt="Alt text"></p>
+<h4 id="c-fragmentation-needed-and-dont-fragment-was-set">C. Fragmentation Needed and Don't Fragment was set </h4>
+<p>Hacemos nuevamente el ping de el ejercicio 3a pero esta vez le agregamos la opción -M do para especificar que el paquete no debería fragmentarse en su trayecto, especificando un tamaño de 1400 mayor a el MTU=1000 de la ruta.</p>
+<p><img src="image-10.png" alt="Alt text"></p>
+<p><img src="image-11.png" alt="Alt text"></p>
+<p>Como nuestra topología no incluye switches conectados a dos routers simultaneamente, la única forma de recibir un ICMP Redirect es seleccionando un Host dentro de una misma sub-red como el default gateway de otro host. Configuramos la topología de la Red A de la siguiente forma:</p>
+<center>
+<p><img src="image-13.png" alt="Alt text"></p>
+</center>
+<p>Es decir, agregamos un segundo host en Imunes.</p>
+<p>Luego, mediante los comandos:</p>
+<pre data-role="codeBlock" data-info="" class="language-text text"><code>ip route del default
+ip route add default via 130.55.48.2
+</code></pre><p>Cambiamos el default gateway de host8 para que este sea eth0 de host4.</p>
+<p>Luego, si enviamos un ping a la Red B desde host8 y observamos la captura de wireshark</p>
+<p><img src="image-12.png" alt="Alt text"></p>
+<p>Vemos como estamos recibiendo un ICMP Redirect de parte de host 4, que es exactamente lo que esperabamos.</p>
 
       </div>
       

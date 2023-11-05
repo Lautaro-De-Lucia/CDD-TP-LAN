@@ -68,7 +68,7 @@ La topología en IMUNES es la de la figura:
 
 <center>
 
-![topologiaimunes](topologiaimunes.png)
+![topologiaimunes](topologiaimunes2.png)
 
 </center>
 
@@ -84,3 +84,59 @@ Donde se definen sub-redes *punto a punto* $H,I,J,K,L$ para los enlaces entre ro
 
 ![3-A](image-4.png)
 
+A continuación, mostramos capturas de la terminal de el Host de la Red A y la captura de Wireshark de su interface eth0.
+
+![Alt text](image-6.png)
+![Alt text](image-5.png)
+
+- En la primera imagen vemos que el ping fue exitoso, enviando un paquete de $3000$ bytes a la dirección $130.55.48.66$. Recibimos una respuesta, indicando que no hubo pérdida de paquetes, y el time to live (TTL) del paquete recibido es de $62$, lo que es consistente con la topología de la red.
+
+- En la captura de Wireshark, vemos como la interface primero observa el ***ping request*** *saliendo* de el Host A con destino en el Host B, fragmentado en 2 partes dado el MTU 1500 de la interfaz eth0 de el host. Luego, recibe el ***ping reply*** fragmentado en tres paquetes (dado el MTU de 1000 en el camino de la respuesta). El fragment offset de el tercer paquete es de 1952 bits (8x244 bytes).
+
+![Alt text](image-8.png)
+
+#### A. Net Unreachable
+
+Realizamos un ping apuntado a una red inexistente (cambiamos $48$ por $49$ en el tercer byte)
+
+![Alt text](image-7.png)
+
+#### B. Host Unreachable
+
+Realizamos un ping apuntando a un host inexistente en la Red B.
+
+![Alt text](image-9.png)
+
+#### C. Fragmentation Needed and Don't Fragment was set
+
+Hacemos nuevamente el ping de el ejercicio 3a pero esta vez le agregamos la opción -M do para especificar que el paquete no debería fragmentarse en su trayecto, especificando un tamaño de 1400 mayor a el MTU=1000 de la ruta.
+
+![Alt text](image-10.png)
+
+
+![Alt text](image-11.png)
+
+Como nuestra topología no incluye switches conectados a dos routers simultaneamente, la única forma de recibir un ICMP Redirect es seleccionando un Host dentro de una misma sub-red como el default gateway de otro host. Configuramos la topología de la Red A de la siguiente forma:
+
+<center>
+
+![Alt text](image-13.png)
+
+</center>
+
+Es decir, agregamos un segundo host en Imunes.
+
+Luego, mediante los comandos:
+
+```
+ip route del default
+ip route add default via 130.55.48.2
+```
+
+Cambiamos el default gateway de host8 para que este sea eth0 de host4.
+
+Luego, si enviamos un ping a la Red B desde host8 y observamos la captura de wireshark
+
+![Alt text](image-12.png)
+
+Vemos como estamos recibiendo un ICMP Redirect de parte de host 4, que es exactamente lo que esperabamos.
